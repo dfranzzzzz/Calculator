@@ -1,34 +1,89 @@
-const numbers = document.querySelectorAll('.num');
-const display = document.querySelector('#display');
-const operators = document.querySelectorAll('.operator');
-const point = document.querySelector('.point');
-let dispNum = display.textContent;
+const numberBtns   = document.querySelectorAll('.num');
+const operatorBtns = document.querySelectorAll('.operator');
+const pointBtn     = document.querySelector('#point');
+const clearBtn     = document.querySelector('#clear');
+const deleteBtn    = document.querySelector('#delete');
+const signBtn      = document.querySelector('#sign');
+const equalBtn     = document.querySelector('#equal');
+const display      = document.querySelector('#display');
 
-numbers.forEach(num => {
-  num.addEventListener('click', () => {
-    if(display.textContent == 0) {
-      display.textContent = `${num.id}`;
-    } else {
-      display.textContent = `${display.textContent + num.id}`
-    }
-  })
-})
+let firstNum = '';
+let secondNum = '';
+let currentOperator = null;
+let shouldResetDisplay = false;
 
-function add (num1, num2) {
-  return num1 + num2;
+numberBtns.forEach((button) => 
+  button.addEventListener('click', () => inputNum(button.id))
+)
+
+operatorBtns.forEach((button) => 
+  button.addEventListener('click', () => setOperator(button.textContent))
+)
+
+equalBtn.addEventListener('click', evaluate);
+clearBtn.addEventListener('click', clear)
+
+
+inputNum = (num) => {
+  if (display.textContent === '0' || shouldResetScreen) resetDisplay();
+  display.textContent += num;
 }
-function subtract (num1, num2) {
-  return num1 - num2;
+
+setOperator = (operator) => {
+  if (currentOperator !== null) evaluate();
+  firstNum = display.textContent;
+  currentOperator = operator;
+  shouldResetScreen = true;
 }
-function multiply (num1, num2) {
-  return num1 * num2;
+
+resetDisplay = () => {
+  display.textContent = "";
+  shouldResetScreen = false;
 }
-function divide (num1, num2) {
-  return num1 / num2;
+
+function clear () {
+  display.textContent = '0'
+  firstNum = '';
+  secondNum = '';
+  currentOperator = null;
 }
-function operate (operator, num1, num2) {
-  if (operator == '+') {add(num1, num2);} 
-  else if (operator == '-') {subtract(num1, num2);}
-  else if (operator == '*') {multiply(num1, num2);}
-  else if (operator == '/') {divide(num1, num2);}
+
+function evaluate () {
+  if (currentOperator === null || shouldResetScreen) return;
+  if (currentOperator === '/' && display.textContent === '0') {
+    alert(`You can't do that, mate`);
+    clear();
+    return;
+  }
+    
+  secondNum = display.textContent;
+  display.textContent = `${operate(currentOperator, firstNum, secondNum)}`;
+  currentOperator = null;
+}
+
+
+
+
+add      = (num1, num2) => {return num1 + num2;}
+subtract = (num1, num2) => {return num1 - num2;}
+multiply = (num1, num2) => {return num1 * num2;}
+divide   = (num1, num2) => {return num1 / num2;}
+
+operate = (operator, num1, num2) => {
+  num1 = Number(num1);
+  num2 = Number(num2);
+
+  switch (operator) {
+    case '+' : 
+      return add(num1, num2);
+    case '-' : 
+      return subtract(num1, num2);
+    case 'x' : 
+      return multiply(num1, num2);
+    case '/' : 
+      if (num2 === 0) return null;
+      return divide(num1, num2);
+    default: 
+      return null;
+  }
 }
