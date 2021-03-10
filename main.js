@@ -8,6 +8,7 @@ const signBtn      = document.querySelector('#sign');
 const equalBtn     = document.querySelector('#equal');
 const display      = document.querySelector('#display');
 
+window.   addEventListener('keydown', typeInput) // for keyboard support
 equalBtn. addEventListener('click', evaluate);
 clearBtn. addEventListener('click', clear);
 deleteBtn.addEventListener('click', backSpace);
@@ -110,4 +111,18 @@ operate = (operator, num1, num2) => {
     default: 
       return null;
   }
+}
+
+// <----- Keyboard Support ----->
+function typeInput (e) {
+  const btn = document.querySelector(`.btn[data-key = "${e.key}"]`);
+
+  if (!btn) return;
+  if (btn.id === 'sign') negate();
+  if (btn.id === 'clear') clear();
+  if (btn.id === 'equal') evaluate();
+  if (btn.id === 'delete') backSpace();
+  if (btn.id === 'point') decimalPoint();
+  if (btn.classList.contains('num')) inputNum(btn.textContent);
+  if (btn.classList.contains('operator')) setOperator(btn.textContent);
 }

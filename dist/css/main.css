@@ -52,6 +52,10 @@ body {
   cursor: pointer;
 }
 
+.container .btns span {
+  font-size: x-small;
+}
+
 .container .btns .btn {
   background: #5a5a5a;
   border-radius: 5px;
@@ -76,4 +80,10 @@ body {
 
 .container .btns .otherFunc {
   background: #008b8b;
+}
+
+.container .btns .otherFunc,
+.container .btns #equal {
+  padding-bottom: 0;
+  line-height: 20px;
 }

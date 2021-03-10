@@ -48,6 +48,10 @@ body {
     row-gap: 5px;
     cursor: pointer;
 
+    span {
+      font-size: x-small;
+    }
+
     .btn {
       background: $numberClr;
       border-radius: 5px;
@@ -70,6 +74,12 @@ body {
 
     .otherFunc {
       background: $otherFuncClr;
+    }
+
+    .otherFunc,
+    #equal {
+      padding-bottom: 0;
+      line-height: 20px;
     }
   }
 }
