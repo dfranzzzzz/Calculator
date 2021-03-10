@@ -46,6 +46,7 @@ body {
     grid-template-rows: auto;
     column-gap: 5px;
     row-gap: 5px;
+    cursor: pointer;
 
     .btn {
       background: $numberClr;
@@ -62,7 +63,8 @@ body {
       grid-column-end: 3;
     }
 
-    .operator {
+    .operator,
+    #equal {
       background: $operatorClr;
     }
 

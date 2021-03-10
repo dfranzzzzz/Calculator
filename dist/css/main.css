@@ -49,6 +49,7 @@ body {
   -webkit-column-gap: 5px;
           column-gap: 5px;
   row-gap: 5px;
+  cursor: pointer;
 }
 
 .container .btns .btn {
@@ -68,7 +69,8 @@ body {
   grid-column-end: 3;
 }
 
-.container .btns .operator {
+.container .btns .operator,
+.container .btns #equal {
   background: #ff7f50;
 }
 
